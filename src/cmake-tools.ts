@@ -168,7 +168,8 @@ export class CMakeTools implements vscode.Disposable, api.CMakeToolsAPI {
   async setConfigurePreset(configurePreset: string | null) {
     if (configurePreset) {
       log.debug(localize('resolving.config.preset', 'Resolving the selected configure preset'));
-      const expandedConfigurePreset = await preset.expandConfigurePreset(configurePreset,
+      const expandedConfigurePreset = await preset.expandConfigurePreset(this.folder.uri.fsPath,
+                                                                         configurePreset,
                                                                          lightNormalizePath(this.folder.uri.fsPath || '.'),
                                                                          await this.sourceDir,
                                                                          true);
@@ -222,7 +223,8 @@ export class CMakeTools implements vscode.Disposable, api.CMakeToolsAPI {
   async setBuildPreset(buildPreset: string | null) {
     if (buildPreset) {
       log.debug(localize('resolving.build.preset', 'Resolving the selected build preset'));
-      const expandedBuildPreset = await preset.expandBuildPreset(buildPreset,
+      const expandedBuildPreset = await preset.expandBuildPreset(this.folder.uri.fsPath,
+                                                                 buildPreset,
                                                                  lightNormalizePath(this.folder.uri.fsPath || '.'),
                                                                  await this.sourceDir,
                                                                  true,
@@ -272,7 +274,8 @@ export class CMakeTools implements vscode.Disposable, api.CMakeToolsAPI {
   async setTestPreset(testPreset: string | null) {
     if (testPreset) {
       log.debug(localize('resolving.test.preset', 'Resolving the selected test preset'));
-      const expandedTestPreset = await preset.expandTestPreset(testPreset,
+      const expandedTestPreset = await preset.expandTestPreset(this.folder.uri.fsPath,
+                                                               testPreset,
                                                                lightNormalizePath(this.folder.uri.fsPath || '.'),
                                                                await this.sourceDir,
                                                                true,
